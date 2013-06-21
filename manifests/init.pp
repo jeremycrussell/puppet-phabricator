@@ -7,18 +7,18 @@ class phabricator (
   $conftemplate = '',
 ) {
   # Install mysql and php modules
-  
+
   Package { ensure => 'installed' }
 
   include 'mysql'
-  
+
   $phpmodules = ['php5',
-                 'php5-mysql',
-                 'php5-gd',
-                 'php5-dev',
-                 'php5-curl',
-                 'php-apc',
-                 'php5-cli']
+                  'php5-mysql',
+                  'php5-gd',
+                  'php5-dev',
+                  'php5-curl',
+                  'php-apc',
+                  'php5-cli']
 
   package { $phpmodules: }
 
@@ -34,25 +34,24 @@ class phabricator (
 
   $phabdir = "${path}/phabricator"
 
-  include 'git'
-
-  Git::Repo {
-    require => File[$path],
-    owner   => $owner,
-    group   => $group,
+  vcsrepo { $libpdir:
+    ensure   => present,
+    provider => git,
+    source   => 'git://github.com/facebook/libphutil.git',
   }
 
-  git::repo { $libpdir:
-    clonesource => "git://github.com/facebook/libphutil.git",
-  }
-  
-  git::repo { $arcdir:
-    clonesource => "git://github.com/facebook/arcanist.git",
+  vcsrepo { $arcdir:
+    ensure   => present,
+    provider => git,
+    source   => 'git://github.com/facebook/arcanist.git',
   }
 
-  git::repo { $phabdir:
-    clonesource => "git://github.com/facebook/phabricator.git",
+  vcsrepo { $phabdir:
+    ensure   => present,
+    provider => git,
+    source   => 'git://github.com/facebook/phabricator.git',
   }
+
 
   # Configure apache vhost
 
@@ -66,7 +65,7 @@ class phabricator (
     port     => '80',
     docroot  => "${phabdir}/webroot",
     template => 'phabricator/apache-vhost-default.conf.erb',
-    require  => Git::Repo[$phabdir],
+    require  => Vcsrepo[$phabdir],
   }
 
   # Add host entry for the FQDN (hostname)
@@ -94,10 +93,10 @@ class phabricator (
   }
 
   file { $confdir:
-    ensure => directory,
-    owner  => $owner,
-    group  => $group,
-    require => Git::Repo[$phabdir],
+    ensure  => directory,
+    owner   => $owner,
+    group   => $group,
+    require => Vcsrepo[$phabdir],
   }
 
   file { $conffile:
