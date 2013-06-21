@@ -55,17 +55,25 @@ class phabricator (
 
   # Configure apache vhost
 
-  include 'apache'
+  class { 'apache':
+      mpm_module => 'prefork'
+  }
 
   include 'apache::mod::php'
 
   apache::mod { 'rewrite': }
 
-  apache::vhost { $hostname:
-    port            => '80',
-    docroot         => "${phabdir}/webroot",
-    custom_fragment => template('phabricator/apache-vhost-default.conf.erb'),
-    require         => Vcsrepo[$phabdir],
+  apache::vhost { 'phabricator':
+    ensure            => present,
+    servername        => $::fqdn,
+    port              => '80',
+    docroot           => "${phabdir}/webroot",
+    directories       => [ "webroot" => {
+        path          => "${phabdir}/webroot",
+        allowOverride => ['Indexes']
+        }],
+    custom_fragment   => template('phabricator/apache-vhost-default.conf.erb'),
+    require           => Vcsrepo[$phabdir],
   }
 
   # Add host entry for the FQDN (hostname)
