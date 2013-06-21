@@ -62,10 +62,10 @@ class phabricator (
   apache::mod { 'rewrite': }
 
   apache::vhost { $hostname:
-    port     => '80',
-    docroot  => "${phabdir}/webroot",
-    template => 'phabricator/apache-vhost-default.conf.erb',
-    require  => Vcsrepo[$phabdir],
+    port            => '80',
+    docroot         => "${phabdir}/webroot",
+    custom_fragment => template('phabricator/apache-vhost-default.conf.erb'),
+    require         => Vcsrepo[$phabdir],
   }
 
   # Add host entry for the FQDN (hostname)
