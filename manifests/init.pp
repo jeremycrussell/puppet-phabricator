@@ -10,7 +10,12 @@ class phabricator (
 
   Package { ensure => 'installed' }
 
-  include 'mysql'
+  class { 'mysql::server':
+    config_hash => { 
+      'root_password' => $mysql_rootpass
+    }
+  }
+
 
   $phpmodules = ['php5',
                   'php5-mysql',
