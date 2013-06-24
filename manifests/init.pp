@@ -11,7 +11,7 @@ class phabricator (
   Package { ensure => 'installed' }
 
   class { 'mysql::server':
-    config_hash => { 
+    config_hash => {
       'root_password' => $mysql_rootpass
     }
   }
@@ -57,6 +57,18 @@ class phabricator (
     source   => 'git://github.com/facebook/phabricator.git',
   }
 
+  # Create user
+
+  user { $owner:
+      comment    => "User for Phabricator",
+      ensure     => present,
+      managehome => true,
+      home       => $path
+  }
+
+  group { $group:
+      ensure    => present
+  }
 
   # Configure apache vhost
 
