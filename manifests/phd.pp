@@ -1,4 +1,6 @@
-class phabricator::phd {
+class phabricator::phd (
+    $path
+){
   Class['phabricator'] -> Class['phabricator::phd']
 
   file { ['/var/tmp/phd',
@@ -9,7 +11,8 @@ class phabricator::phd {
     group  => root,
   }
 
-  $phd_path = "${phabricator::phabdir}/bin" # For phd.erb template
+  $phd_path = "${path}/phabricator/bin" # For phd.erb template
+  notify { "phabricator phabdir is #{phabricator::phabdir}":}
 
   file { '/etc/init.d/phd':
     ensure  => present,
