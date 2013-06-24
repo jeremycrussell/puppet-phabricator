@@ -31,7 +31,11 @@ class phabricator (
 
   # Get phabricator git repositories
 
-  file { $path: ensure => directory, }
+  file { $path: 
+    ensure => directory, 
+    owner  => $owner,
+    group  => $group
+  }
 
   $libpdir = "${path}/libphutil"
 
