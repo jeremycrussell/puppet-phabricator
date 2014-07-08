@@ -1,0 +1,49 @@
+{
+  "author": "rbjavier",
+  "checksums": {
+    "manifests\\params.pp": "56f904f5a3903de20342c0c0d8ee9a5e",
+    "manifests\\phab_install.pp": "f51c781368681b07b0fc8fe141378613",
+    "README.rst": "56b1768a36cb62038135c2acaa89ab75",
+    "manifests\\phd.pp": "c2d609558f444562b02f4ec43e026774",
+    "templates\\apache-vhost-default.conf.erb": "dcd060ff7b76654166a55d91d3dda6da",
+    "templates\\phd.erb": "af184ab7bb1c6ddae12b4637e0060a2b",
+    "templates\\phd_rhel.erb": "af184ab7bb1c6ddae12b4637e0060a2b",
+    "Modulefile": "42e29a93f3e04df669de98d6afbd6cb2",
+    "manifests\\phab_config.pp": "c593b10e2e0fa14808ceeedc4730d3ba",
+    "manifests\\apache_install.pp": "d093f52cd99ee6d971ff25cd9cf48da3",
+    "manifests\\init.pp": "70f7478c4b541abad9bd64c1e8e83698",
+    "templates\\default.conf.php.erb": "465fb7fd9413be1b265d230509fedd26",
+    "manifests\\config_tool.pp": "6d20a18f8263ed75e18b81c7d3e07d42",
+    "manifests\\pear.pp": "11456fe3f698110e886af83145719266"
+  },
+  "dependencies": [
+    {
+      "name": "puppetlabs/apache",
+      "version_requirement": "\u003e\u003d 0.4.0"
+    },
+    {
+      "name": "puppetlabs/mysql",
+      "version_requirement": "\u003e\u003d 0.6.1"
+    },
+    {
+      "name": "puppetlabs/vcsrepo",
+      "version_requirement": "\u003e\u003d 0.1.2"
+    },
+    {
+      "name": "puppetlabs/inifile",
+      "version_requirement": "1.1.0"
+    },
+    {
+      "name": "saz/sudo",
+      "version_requirement": "3.0.6"
+    }
+  ],
+  "description": "Install Phabricator, its tools and dependencies",
+  "license": "Apache 2.0",
+  "name": "rbjavier-phabricator",
+  "project_page": "https://github.com/rbjavier/puppet-phabricator",
+  "source": "git://github.com/rbjavier/puppet-phabricator",
+  "summary": "Phabricator installation",
+  "types": [],
+  "version": "0.0.2"
+}

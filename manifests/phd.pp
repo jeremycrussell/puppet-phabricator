@@ -1,30 +1,35 @@
 class phabricator::phd (
-    $path
-){
+  $path    = $phabricator::params::path,
+  $phabdir = $phabricator::params::phabdir,
+  $owner   = $phabricator::params::owner,
+  $group   = $phabricator::params::group,
+  $phd_service_file          = $phabricator::params::phd_service_file,
+  $phd_service_name          = $phabricator::params::phd_service_name,
+  $phd_service_file_template = $phabricator::params::phd_service_file_template) {
   Class['phabricator'] -> Class['phabricator::phd']
 
-  file { ['/var/tmp/phd',
-          '/var/tmp/phd/pid',
-          '/var/tmp/phd/log']:
+  file { ['/var/tmp/phd', '/var/tmp/phd/pid', '/var/tmp/phd/log']:
     ensure => directory,
-    owner  => root,
-    group  => root,
+    owner  => $owner,
+    group  => $group,
   }
 
-  $phd_path = "${path}/phabricator/bin" # For phd.erb template
-  notify { "phabricator phabdir is #{phabricator::phabdir}":}
+  $phd_path = "${$phabdir}/bin" # For phd.erb template
 
-  file { '/etc/init.d/phd':
+
+  notify { "phabricator phabdir is #{phabricator::params::phabdir}": }
+
+  file { $phd_service_file:
     ensure  => present,
     mode    => 0755,
-    content => template("phabricator/phd.erb"),
+    content => template($phd_service_file_template),
   }
 
-  service { 'phd':
+  service { $phd_service_name:
     ensure     => running,
     enable     => true,
     hasrestart => true,
     hasstatus  => true,
-    require    => File['/etc/init.d/phd'],
+    require    => File[$phd_service_file],
   }
 }
