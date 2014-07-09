@@ -1,10 +1,11 @@
-Phabricator pupet module
-========================
+Phabricator puppet module
+=========================
 
 This module installs `Phabricator <http://phabricator.org/>`_. It is based
-on the Ubuntu `installation script
-<http://www.phabricator.com/rsrc/install/install_ubuntu.sh>`_
-of the Phabricator installation guide.
+on the installation scripts for `Ubuntu 
+<http://www.phabricator.com/rsrc/install/install_ubuntu.sh>`_ and `RHEL Derivatives 
+<http://www.phabricator.com/rsrc/install/install_rhel-derivs.sh>`_
+off the `Phabricator installation guide <https://secure.phabricator.com/book/phabricator/article/installation_guide/>`_.
 
 Details
 -------
