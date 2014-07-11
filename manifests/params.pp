@@ -19,32 +19,31 @@ class phabricator::params {
   $git_libphutil = 'git://github.com/facebook/libphutil.git'
   $git_arcanist = 'git://github.com/facebook/arcanist.git'
   $git_phabricator = 'git://github.com/facebook/phabricator.git'
-  $phd_service_file='/etc/init.d/phd'
-  $phd_service_name='phd'
-  
+  $phd_service_file = '/etc/init.d/phd'
+  $phd_service_name = 'phd'
 
   # $::operatingsystem
   # - Fedora
   #  -$::operatingsystemrelease
-  
-  class {'apache::params':
-    
+
+  class { 'apache::params':
   }
 
   case $::osfamily {
     'RedHat' : {
-      $phd_service_file_template='phabricator/phd_rhel.erb'
-      
+      $phd_service_file_template = 'phabricator/phd_rhel.erb'
+
       case $::operatingsystemmajrelease {
         '6', '7' : {
           $php_packages = [
-            'php php-cli',
+            'php',
+            'php-cli',
             'php-mysql',
             'php-process',
             'php-devel',
             'php-gd',
             'php-pecl-apc',
-            'php-pecl-json',
+            'php-common',
             'php-mbstring']
         }
         '5'      : {
@@ -71,7 +70,7 @@ class phabricator::params {
     }
 
     'Debian' : {
-      $phd_service_file_template='phabricator/phd.erb'
+      $phd_service_file_template = 'phabricator/phd.erb'
       $php_packages = ['dpkg-dev', 'php5', 'php5-mysql', 'php5-gd', 'php5-dev', 'php5-curl', 'php-apc', 'php5-cli', 'php5-json']
 
       case $::operatingsystem {

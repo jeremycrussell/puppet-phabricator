@@ -47,12 +47,14 @@ class phabricator (
   package { $phabricator::params::git_package: }
 
   class { 'phabricator::phab_install':
+    
     require => [
       Package[$phabricator::params::php_packages],
       Package[$phabricator::params::git_package]]
   }
 
   class { 'phabricator::phab_config':
+    mysql_rootpass => $mysql_rootpass,
     require => Class['phabricator::phab_install']
   }
 
