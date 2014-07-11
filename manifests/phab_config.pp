@@ -58,43 +58,43 @@ class phabricator::phab_config (
     content => "custom/default",
     require => [Class['mysql::server'], Package[$apache::params::service_name], Class['phabricator::phab_install'], File[$conffile],],
     notify  => [Service[$apache::params::service_name], Exec['upgrade_storage'],],
-  }
+  }->
 
   phabricator::config_tool { 'set_mysql_host':
     name    => 'mysql.host',
     value   => $mysql_host,
     phabdir => $phabdir
-  }
+  }->
 
   phabricator::config_tool { 'set_mysql_user':
     name    => 'mysql.user',
     value   => $mysql_root_user,
     phabdir => $phabdir
-  }
+  }->
 
   phabricator::config_tool { 'set_mysql_pass':
     name    => 'mysql.pass',
     value   => $mysql_rootpass,
     phabdir => $phabdir
-  }
+  }->
 
   phabricator::config_tool { 'set_base_uri':
     name    => 'phabricator.base-uri',
     value   => $base_uri,
     phabdir => $phabdir
-  }
+  }->
 
   phabricator::config_tool { 'set_phd_user':
     name    => 'phd.user',
     value   => $phd_user,
     phabdir => $phabdir
-  }
+  }->
 
   phabricator::config_tool { 'set_vcs_user':
     name    => 'diffusion.ssh-user',
     value   => $vcs_user,
     phabdir => $phabdir
-  }
+  }->
 
   exec { 'upgrade_storage':
     command     => "storage upgrade --force",

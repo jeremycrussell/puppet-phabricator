@@ -57,6 +57,12 @@ class phabricator (
     mysql_rootpass => $mysql_rootpass,
     require => Class['phabricator::phab_install']
   }
+  
+  class { 'phabricator::phd':
+
+    require => Class['phabricator::phab_install']
+  }
+  
 
   # Add host entry for the FQDN (hostname)
   # We assume that the FQDN should map to localhost. We set this host
@@ -65,7 +71,7 @@ class phabricator (
   # should work without name resolution problems (as an example,
   # consider that if there is a name resolution problem, the phd
   # launcher won't work).
-  host { $hostname: ip => '127.0.0.1', }
+  host { $hostname: ip => $::ipaddress_eth1, }
 
   # Set default configuration
   # We use a template configuration file with the mysql root password
