@@ -33,6 +33,10 @@ class phabricator (
       }
     }
   }
+  
+  class { 'phabricator::apache_install':
+    
+  }
 
   class { 'phabricator::pear':
     require => Package[$phabricator::params::php_packages]

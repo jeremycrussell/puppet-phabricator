@@ -22,7 +22,7 @@ class phabricator::phab_config (
     require => Package[$phabricator::params::php_packages]
   }
 
-  if (false) {
+  if (true) {
     if $conftemplate == '' {
       $cnftemplate = template("phabricator/${conffile}.erb")
     } else {
@@ -56,7 +56,7 @@ class phabricator::phab_config (
     ensure  => present,
     path    => "${phabdir}/conf/local/ENVIRONMENT",
     content => "custom/default",
-    require => [Class['mysql::server'], Package[$apache::params::service_name], File[$conffile],],
+    require => [Class['mysql::server'], Package[$apache::params::service_name], Class['phabricator::phab_install'], File[$conffile],],
     notify  => [Service[$apache::params::service_name], Exec['upgrade_storage'],],
   }
 

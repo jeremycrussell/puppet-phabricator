@@ -1,15 +1,17 @@
 class phabricator::apache_install ($phabdir = $phabricator::params::phabdir,) {
-  class { 'apache': default_vhost => false, }
+  class { 'apache':
+    mpm_module    => 'prefork',
+    default_vhost => false,
+  }
 
-  class { 'apache': mpm_module => 'prefork' }
+  class { 'apache::mod::php':
+  }
 
-  class { 'apache::mod::php': }
+#  class { 'apache::mod::rewrite':
+#  }
 
-  class { 'apache::mod::rewrite': }
-
-  class { 'apache::mod::ssl': }
-
-  class { 'apache::mod::php': }
+  class { 'apache::mod::ssl':
+  }
 
   apache::vhost { $fqdn:
     port            => '80',

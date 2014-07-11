@@ -21,17 +21,21 @@ class phabricator::params {
   $git_phabricator = 'git://github.com/facebook/phabricator.git'
   $phd_service_file='/etc/init.d/phd'
   $phd_service_name='phd'
-  $phd_service_file_template='phabricator/phd.erb'
+  
 
   # $::operatingsystem
   # - Fedora
   #  -$::operatingsystemrelease
+  
+  class {'apache::params':
+    
+  }
 
   case $::osfamily {
     'RedHat' : {
       $phd_service_file_template='phabricator/phd_rhel.erb'
       
-      case $::lsbmajdistrelease {
+      case $::operatingsystemmajrelease {
         '6', '7' : {
           $php_packages = [
             'php php-cli',
@@ -58,7 +62,7 @@ class phabricator::params {
           $install_pear = true
         }
         default  : {
-          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, lsbmajdistrelease ${::lsbmajdistrelease} only support osfamily 5,6 or 7"
+          fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, operatingsystemmajrelease: ${::operatingsystemmajrelease} only support osfamily 5,6 or 7"
           )
 
         }
@@ -67,6 +71,7 @@ class phabricator::params {
     }
 
     'Debian' : {
+      $phd_service_file_template='phabricator/phd.erb'
       $php_packages = ['dpkg-dev', 'php5', 'php5-mysql', 'php5-gd', 'php5-dev', 'php5-curl', 'php-apc', 'php5-cli', 'php5-json']
 
       case $::operatingsystem {
