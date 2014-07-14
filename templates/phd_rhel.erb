@@ -12,6 +12,7 @@ DESC="phd daemon launcher"
 NAME=phd
 DAEMON=<%= @phd_path %>/$NAME
 SCRIPTNAME=/etc/init.d/$NAME
+USER=<%= @phd_user %>
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -20,7 +21,7 @@ RETVAL=0
 case "$1" in
     start)
         [ "$VERBOSE" != no ] && echo "Starting $DESC" "$NAME"
-        "$DAEMON" start
+        su - $USER -c "$DAEMON start"
         RETVAL="$?"
         case "$?" in
             0) [ "$VERBOSE" != no ] && echo 0 ;;
@@ -30,7 +31,7 @@ case "$1" in
         ;;
     stop)
         [ "$VERBOSE" != no ] && echo "Stopping $DESC" "$NAME"
-        "$DAEMON" stop
+        su - $USER -c "$DAEMON stop"
         RETVAL="$?"
         case "$?" in
             0) [ "$VERBOSE" != no ] && echo 0 ;;
@@ -38,11 +39,11 @@ case "$1" in
         esac
         ;;
     status)
-	"$DAEMON" status && exit 0 || exit $?
+	su - $USER -c "$DAEMON status" && exit 0 || exit $?
 	;;
     restart)
         echo "Restarting $DESC" "$NAME"
-        "$DAEMON" restart
+        su - $USER -c "$DAEMON restart"
         RETVAL="$?"
         case "$?" in
             0) echo 0 ;;
