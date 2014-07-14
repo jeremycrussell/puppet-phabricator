@@ -25,44 +25,38 @@ class phabricator (
   Package {
     ensure => 'installed' }
 
-  class { 'mysql::server':
-    root_password    => 'blossom',
-    override_options => {
-      'mysqld' => {
-        'sql_mode' => 'STRICT_ALL_TABLES'
-      }
-    }
-  }
-  
-  class { 'phabricator::apache_install':
-    
-  }
+  class { 'phabricator::mysql_install': mysql_rootpass => $mysql_rootpass; }
 
-  class { 'phabricator::pear':
-    require => Package[$phabricator::params::php_packages]
-  }
+  class { 'phabricator::pear': require => Package[$phabricator::params::php_packages] }
 
   package { $phabricator::params::php_packages: }
 
   package { $phabricator::params::git_package: }
 
   class { 'phabricator::phab_install':
-    
     require => [
       Package[$phabricator::params::php_packages],
-      Package[$phabricator::params::git_package]]
+      Package[$phabricator::params::git_package],
+      Class['phabricator::mysql_install'],
+      ]
+  }
+
+  class { 'phabricator::apache_install':
+    require => Class['phabricator::phab_install']
   }
 
   class { 'phabricator::phab_config':
     mysql_rootpass => $mysql_rootpass,
-    require => Class['phabricator::phab_install']
+    require        => Class['phabricator::phab_install']
   }
-  
-  class { 'phabricator::phd':
 
+  class { 'phabricator::phd':
+    require => Class['phabricator::phab_config']
+  }
+
+  class { 'phabricator::phab_post_install_config':
     require => Class['phabricator::phab_install']
   }
-  
 
   # Add host entry for the FQDN (hostname)
   # We assume that the FQDN should map to localhost. We set this host

@@ -1,21 +1,20 @@
 class phabricator::phd (
-  $path    = $phabricator::params::path,
-  $phabdir = $phabricator::params::phabdir,
-  $owner   = $phabricator::params::owner,
-  $group   = $phabricator::params::group,
+  $path     = $phabricator::params::path,
+  $phabdir  = $phabricator::params::phabdir,
+  $owner    = $phabricator::params::owner,
+  $group    = $phabricator::params::group,
   $phd_service_file          = $phabricator::params::phd_service_file,
   $phd_service_name          = $phabricator::params::phd_service_name,
-  $phd_service_file_template = $phabricator::params::phd_service_file_template) {
-  Class['phabricator'] -> Class['phabricator::phd']
+  $phd_service_file_template = $phabricator::params::phd_service_file_template,
+  $phd_user = $phabricator::params::phd_user,) {
 
   file { ['/var/tmp/phd', '/var/tmp/phd/pid', '/var/tmp/phd/log']:
     ensure => directory,
-    owner  => $owner,
+    owner  => $phd_user,
     group  => $group,
   }
 
   $phd_path = "${$phabdir}/bin" # For phd.erb template
-
 
   notify { "phabricator phabdir is #{phabricator::params::phabdir}": }
 
