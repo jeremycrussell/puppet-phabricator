@@ -42,6 +42,7 @@ class phabricator (
   }
 
   class { 'phabricator::apache_install':
+    hostname = "$hostname"
     require => Class['phabricator::phab_install']
   }
 
