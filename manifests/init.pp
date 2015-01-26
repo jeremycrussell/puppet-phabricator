@@ -65,7 +65,7 @@ class phabricator (
   # should work without name resolution problems (as an example,
   # consider that if there is a name resolution problem, the phd
   # launcher won't work).
-  host { $hostname: ip => $::ipaddress_eth1, }
+  host { $hostname: ip => $::ipaddress_eth0, }
 
   # Set default configuration
   # We use a template configuration file with the mysql root password
