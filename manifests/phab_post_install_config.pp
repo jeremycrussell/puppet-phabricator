@@ -17,9 +17,11 @@ class phabricator::phab_post_install_config (
  
 
   # TODO: remomve Defaults    requiretty
-  class { '::sudo':
-    purge               => false,
-    config_file_replace => false,
+  if ! defined (class['sudo']) {
+    class { 'sudo':
+      purge               => false,
+      config_file_replace => false,
+    }
   }
 
   sudo::conf { $vcs_user:
