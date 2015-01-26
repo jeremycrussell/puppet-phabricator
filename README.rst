@@ -10,7 +10,7 @@ off the `Phabricator installation guide <https://secure.phabricator.com/book/pha
 Details
 -------
 
-The module uses the ``apache`` and ``mysql`` modules from
+The module uses the ``apache``, ``vcsrepo``, ``inifile`` and ``mysql`` modules from
 ``puppetlabs`` and the ``git`` module at ``rbjavier/puppet-git``.
 
 It configures an ``apache vhost`` and requires enough privileges to
