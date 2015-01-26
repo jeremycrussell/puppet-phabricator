@@ -5,7 +5,7 @@ class phabricator::params {
   $mysql_rootpass = undef
   $mysql_host = 'localhost'
   $mysql_root_user = 'root'
-  $base_uri = "http://${::ipaddress_eth1}/"
+  $base_uri = "http://${hostname}/"
   $owner = 'root'
   $group = 'phabricator'
   $vcs_user = 'vcs-user'
