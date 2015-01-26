@@ -17,7 +17,7 @@ class phabricator::phab_post_install_config (
  
 
   # TODO: remomve Defaults    requiretty
-  class { 'sudo':
+  class { '::sudo':
     purge               => false,
     config_file_replace => false,
   }
