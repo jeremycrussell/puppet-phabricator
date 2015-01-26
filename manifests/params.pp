@@ -16,9 +16,9 @@ class phabricator::params {
   $install_pear = false
   $timezone = 'Europe/Dublin'
   $git_package = 'git'
-  $git_libphutil = 'git://github.com/facebook/libphutil.git'
-  $git_arcanist = 'git://github.com/facebook/arcanist.git'
-  $git_phabricator = 'git://github.com/facebook/phabricator.git'
+  $git_libphutil = 'https://github.com/facebook/libphutil.git'
+  $git_arcanist = 'https://github.com/facebook/arcanist.git'
+  $git_phabricator = 'https://github.com/facebook/phabricator.git'
   $phd_service_file = '/etc/init.d/phd'
   $phd_service_name = 'phd'
 
