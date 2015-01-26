@@ -31,7 +31,7 @@ class phabricator (
 
   package { $phabricator::params::php_packages: }
 
-  package { $phabricator::params::git_package: }
+  if ! defined (Package[$phabricator::params::git_package]) { package { $phabricator::params::git_package: } }
 
   class { 'phabricator::phab_install':
     require => [
