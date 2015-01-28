@@ -26,7 +26,7 @@ class phabricator::phab_post_install_config (
 
   sudo::conf { $vcs_user:
     priority => 10,
-    content  => "${vcs_user} ALL=(${phd_user}) SETENV: NOPASSWD: /path/to/bin/git-upload-pack, /path/to/bin/git-receive-pack, /path/to/bin/hg, /path/to/bin/svnserve",
+    content  => "${vcs_user} ALL=(${phd_user}) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/hg, /usr/bin/svnserve",
   }
 
   sudo::conf { $apache::params::apache_name:
