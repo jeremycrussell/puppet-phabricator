@@ -35,7 +35,7 @@
     },
     {
       "name": "saz/sudo",
-      "version_requirement": "3.0.6"
+      "version_requirement": "\u003e\u003d 3.0.6"
     }
   ],
   "description": "Install Phabricator, its tools and dependencies",
