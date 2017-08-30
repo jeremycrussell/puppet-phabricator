@@ -10,5 +10,5 @@ dependency 'puppetlabs/apache', '>= 0.4.0'
 dependency 'puppetlabs/mysql', '>= 0.6.1'
 dependency 'puppetlabs/vcsrepo', '>= 0.1.2'
 dependency 'puppetlabs/inifile', '>= 1.1.0'
-dependency 'saz/sudo', '3.0.6'
+dependency 'saz/sudo', '>= 3.0.6'
 
