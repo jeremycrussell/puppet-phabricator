@@ -31,7 +31,7 @@
     },
     {
       "name": "puppetlabs/inifile",
-      "version_requirement": "1.2.0"
+      "version_requirement": "\u003e\u003d 1.2.0"
     },
     {
       "name": "saz/sudo",
