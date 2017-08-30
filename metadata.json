@@ -42,7 +42,7 @@
   "license": "Apache 2.0",
   "name": "rbjavier-phabricator",
   "project_page": "https://github.com/rbjavier/puppet-phabricator",
-  "source": "git://github.com/rbjavier/puppet-phabricator",
+  "source": "git://github.com/jeremycrussell/puppet-phabricator",
   "summary": "Phabricator installation",
   "types": [],
   "version": "0.0.2"
